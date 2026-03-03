@@ -56,13 +56,13 @@
 
 ## Step 3
 **As you have seen full content extraction from files is not efficient, we need to add RAG search capability to enhance our Agent**
-1. Provide implementation for the [tools/base.py](task/tools/rag/rag_tool.py) according to TODO
+1. Provide implementation for the [tools/rag/rag_tool.py](task/tools/rag/rag_tool.py) according to TODO
 2. Add this tool to [app.py](task/app.py)
 3. Test it:
    - Attach [microwave_manual.txt](tests/microwave_manual.txt) and ask: `How should I clean the plate?` - should call RAG tool. The main criteria here is that this tool will be called, usually it will try to call the `file_content_extraction_tool`, but after fetching 1st page and seeing that there are more paged it should call RAG tool, also user can indicate to model that RAG tool should be called
    - Pay attention that tool SYSTEM prompt matters, tool description as well. Configure it to achieve best result!
 
-## Step 3
+## Step 4
 **Now let's add Image generation tool**
 
 **ℹ️ In DIAL we name models and applications as deployments**
@@ -85,7 +85,7 @@
    - `Generate picture with smiling cat` - expected result that you will see in stage all request parameters and attached revised prompt and picture, also, generated picture must be shown as content part in choice
    - If you created WEB search as deployment tool, test with such query: `Search what is the weather in Kyiv now and based on result generate picture that will represent it`
 
-## Step 4
+## Step 5
 **Time to add WEB search (if you added as deployment tool - it is okay, but its not for free, we will make it for free)**
 
 1. Add to [docker-compose](docker-compose.yml) new service:
@@ -102,15 +102,15 @@
       cpus: 0.5
     ```
     Sources: https://github.com/khshanovskyi/duckduckgo-mcp-server
-2. Provide implementation for the [tools/deployment/mcp_client.py](task/tools/mcp/mcp_client.py) according to TODO
-3. Provide implementation for the [tools/deployment/mcp_tool.py](task/tools/mcp/mcp_tool.py) according to TODO
+2. Provide implementation for the [tools/mcp/mcp_client.py](task/tools/mcp/mcp_client.py) according to TODO
+3. Provide implementation for the [tools/mcp/mcp_tool.py](task/tools/mcp/mcp_tool.py) according to TODO
 4. Add all MCP tools from `http://localhost:8051/mcp` to [app.py](task/app.py) as MCPTool
 5. Restart [docker-compose](docker-compose.yml)
 6. Test it:
    - `Search what is the weather in Kyiv now`
    - `Who is Arkadiy Dobkin?`
 
-## Step 5
+## Step 6
 **Time to add Code Interpreter**
 
 LLMs cannot perform real calculations, they are 'assuming'. Also, sometimes we need to analyze data щк make some chart. 
@@ -132,14 +132,14 @@ Flow: <img src="py_interpreter_flow.png">
         mem_limit: 2G
         cpus: 2.0
     ```
-2. Provide implementation for the [tools/deployment/mcp_tool.py](task/tools/mcp/interpreter/python_code_interpreter_tool.py) according to TODO
-3. Add Python Code Interpreter tool to [app.py](task/app.py), url http://localhost:8050/mc
+2. Provide implementation for the [tools/py_interpreter/python_code_interpreter_tool.py](task/tools/py_interpreter/python_code_interpreter_tool.py) according to TODO
+3. Add Python Code Interpreter tool to [app.py](task/app.py), url http://localhost:8050/mcp
 4. Restart [docker-compose](docker-compose.yml)
 5. Test it:
     - `What is the sin of 5682936329203?` Should call PyInterpreter and show result
     - Attach [report.csv](tests/report.csv) and ask: `I need chart bar from this data` - should get file content and then call PyInterpreter, in response should be generated file as attachment that will be able to see
 
-## Step 6
+## Step 7
 **Multi-model**
 
 DIAL Platform provides users with Unified API to work with different models. Let's add Anthropic Sonnet model as orchestration model:

@@ -1,10 +1,61 @@
 {
   "routes": {},
   "applications": {
-
+    "general-purpose-agent": {
+      "display_name": "General Purpose Agent",
+      "description": "General purpose agent. Equipped with : WEB search(DuckDuckGo), RAG search(supports PDF, TXT, CSV files), Python interpreter, Image Generation(model).",
+      "endpoint": "http://host.docker.internal:5030/openai/deployments/general-purpose-agent/chat/completions",
+      "inputAttachmentTypes": [
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "text/csv",
+        "text/html",
+        "text/plain"
+      ],
+      "forwardAuthToken": true
+    }
   },
   "models": {
-
+    "gpt-4o": {
+      "display_name": "GPT-4o",
+      "description": "",
+      "endpoint": "http://adapter-dial:5000/openai/deployments/gpt-4o/chat/completions",
+      "iconUrl": "http://localhost:3001/gpt4.svg",
+      "type": "chat",
+      "upstreams": [
+        {
+          "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/gpt-4o/chat/completions",
+          "key": "{DIAL_API_KEY}"
+        }
+      ]
+    },
+    "dall-e-3": {
+      "display_name": "DALL-E 3",
+      "description": "",
+      "endpoint": "http://adapter-dial:5000/openai/deployments/dall-e-3/chat/completions",
+      "iconUrl": "http://localhost:3001/gpt3.svg",
+      "type": "chat",
+      "upstreams": [
+        {
+          "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/dall-e-3/chat/completions",
+          "key": "{DIAL_API_KEY}"
+        }
+      ]
+    },
+    "claude-haiku-4-5": {
+      "display_name": "Claude Haiku 4.5",
+      "description": "",
+      "endpoint": "http://adapter-dial:5000/openai/deployments/claude-haiku-4-5/chat/completions",
+      "iconUrl": "http://localhost:3001/anthropic.svg",
+      "type": "chat",
+      "upstreams": [
+        {
+          "endpoint": "https://ai-proxy.lab.epam.com/openai/deployments/anthropic.claude-haiku-4-5-20251001-v1:0/chat/completions",
+          "key": "{DIAL_API_KEY}"
+        }
+      ]
+    }
   },
   "keys": {
     "dial_api_key": {

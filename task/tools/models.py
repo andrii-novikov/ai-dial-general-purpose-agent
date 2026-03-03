@@ -1,6 +1,8 @@
 from dataclasses import dataclass
-from aidial_sdk.chat_completion import Stage, Choice
-from aidial_client.types.chat.legacy.chat_completion import ToolCall
+
+from aidial_sdk.chat_completion import Choice, Stage, ToolCall
+
+# from aidial_client.types.chat.legacy.chat_completion import ToolCall
 
 
 @dataclass
